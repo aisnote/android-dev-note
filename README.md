@@ -6,6 +6,13 @@ And the developer record everything when he start to develop the lomorage since 
 
 Via this notes, you can learn a lots esp. on how to start android app development from scratch.
 
+But everything on this book is just my notes, so I name this book:
+
+ **\<\<My android app development note\>\>**
+
+
+
+
 Enjoy the reading.
 
 ~aisnote at gmail dot com.
