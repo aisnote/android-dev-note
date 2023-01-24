@@ -55,5 +55,19 @@ Then, in the **Logic** layer, call flow as below
 
 ```
 
-Last in the **UI layer**, just like:
+Last in the **UI layer**, the call flow just like below code picture:
+
+<table>
+<tbody>
+<tr>
+<td>
+<img src="./../assets/imgs/getLomodInfo.png" height="300px"/>
+</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
 
