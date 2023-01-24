@@ -1,0 +1,14 @@
+{
+    "plugins": [
+        "tbfed-pagefooter"
+     ],
+     "pluginsConfig": {
+         "tbfed-pagefooter": {
+             "copyright":"Copyright &copy aisnote at gmail dot com 2023",
+             "modify_label": "Latest update：",
+             "modify_format": "MM-DD-YYYY HH:mm:ss"
+         }
+     }
+
+    
+}
