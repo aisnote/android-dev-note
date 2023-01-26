@@ -11,7 +11,7 @@
 
     "plugins": [
         "tbfed-pagefooter",
-        "mermaid"
+        "mermaid-gb3"
      ],
      "pluginsConfig": {
          "tbfed-pagefooter": {
