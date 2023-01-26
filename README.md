@@ -8,13 +8,13 @@ Via this notes, you can learn a lots esp. on how to start android app developmen
 
 But everything on this book is just my notes, so I name this book:
 
- **"My Android App development notes in Kotlin"**
+ **"My Android App development notes with Kotlin"**
 
 
 
 
 Enjoy the reading.
 
-**You can search the content via the left-top search input.**
+**You can search the content via the left-top search box.**
 
 ~aisnote at gmail dot com.

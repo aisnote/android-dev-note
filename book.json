@@ -1,6 +1,17 @@
 {
+    
+    "gitbook" : "3.2.3",
+    "title": "GitBook Toolchain Documentation",
+
+
+    "structure": {
+        "readme": "README.md",
+        "summary": "SUMMARY.md"
+    },
+
     "plugins": [
-        "tbfed-pagefooter"
+        "tbfed-pagefooter",
+        "mermaid-newface"
      ],
      "pluginsConfig": {
          "tbfed-pagefooter": {
