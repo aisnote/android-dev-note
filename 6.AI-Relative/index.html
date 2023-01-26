@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>4. Network · GitBook Toolchain Documentation</title>
+        <title>6. AI Relative · GitBook Toolchain Documentation</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -61,10 +61,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../5.Media/" />
     
-    
-    <link rel="prev" href="../3.Database/" />
+    <link rel="prev" href="../5.Media/" />
     
 
     </head>
@@ -209,9 +207,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.4" data-path="./">
+        <li class="chapter " data-level="1.4" data-path="../4.Network/">
             
-                <a href="./">
+                <a href="../4.Network/">
             
                     
                     4. Network
@@ -235,9 +233,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6" data-path="../6.AI-Relative/">
+        <li class="chapter active" data-level="1.6" data-path="./">
             
-                <a href="../6.AI-Relative/">
+                <a href="./">
             
                     
                     6. AI Relative
@@ -278,7 +276,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >4. Network</a>
+        <a href=".." >6. AI Relative</a>
     </h1>
 </div>
 
@@ -293,68 +291,8 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="4-network-layer">4. Network layer</h1>
-<p>RestFul API used below component:</p>
-<blockquote>
-<p>com.squareup.retrofit2</p>
-</blockquote>
-<p>It&apos;s pretty easily to create the interface and build the instance like:</p>
-<pre><code class="lang-kotlin"><span class="hljs-variable"><span class="hljs-keyword">val</span> retrofit</span> = Retrofit.Builder()
-        .baseUrl(inPutBaseUrl.trim())
-        .addConverterFactory(ScalarsConverterFactory.create())
-        <span class="hljs-comment">//.addConverterFactory(MoshiConverterFactory.create())</span>
-        .addConverterFactory(MoshiConverterFactory.create(getMoshi()))
-        <span class="hljs-comment">// The call adapter handles threads</span>
-        .addCallAdapterFactory(CoroutineCallAdapterFactory())
-        .callbackExecutor(mExecutorService)
-        .client(client)
-        .build()
-
-<span class="hljs-keyword">return</span> retrofit.create(LomoService::<span class="hljs-class"><span class="hljs-keyword">class</span>.<span class="hljs-title">java</span>)</span>
-</code></pre>
-<p>And the <strong>LomoService</strong> is an interface class like below:</p>
-<pre><code class="lang-Kotlin">interface LomoService {
-    @Headers(<span class="hljs-string">&quot;Accept: text/plain&quot;</span>)
-    @GET(<span class="hljs-string">&quot;system&quot;</span>)
-    <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">getSystemInfo</span><span class="hljs-params">()</span>: Deferred<span class="hljs-type">&lt;Response&lt;String&gt;</span>&gt;</span>
-}
-</code></pre>
-<p>Then, in the <strong>Logic</strong> layer, call flow as below</p>
-<pre><code class="lang-Kotlin">
-    suspend <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">getLomoSystemInfo</span><span class="hljs-params">()</span> : <span class="hljs-keyword">Boolean</span> {</span>
-        <span class="hljs-keyword">try</span> {
-            <span class="hljs-variable"><span class="hljs-keyword">val</span> webResp</span> = LomoApi.getInst().getSystemInfo().await()
-
-            <span class="hljs-keyword">if</span> (webResp.isSuccessful) {
-                Timber.i(<span class="hljs-string">&quot;lomod: ${webResp.body()}&quot;</span>)
-                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
-            } <span class="hljs-keyword">else</span> {
-                Timber.e(<span class="hljs-string">&quot;getLomoSystemInfo: connected failed!&quot;</span>)
-                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
-            }
-        } <span class="hljs-keyword">catch</span> (e: Exception) {
-            Timber.e(<span class="hljs-string">&quot;getLomoSystemInfo exception, ${e.message}&quot;</span>)
-            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
-        }
-    }
-</code></pre>
-<p>Last in the <strong>UI layer</strong>, the call flow just like below code picture:</p>
-<table>
-<tbody>
-<tr>
-<td>
-<img src="../assets/imgs/getLomodInfo.png" height="300px">
-</td>
-</tr>
-</tbody>
-</table>
-
-
-
-
-
-
-
+                                <h1 id="6-ai-relative">6. AI Relative</h1>
+<p><a href="https://firebase.google.com/docs/ml-kit/" target="_blank">Google ML-kit</a> </p>
 <footer class="page-footer"><span class="copyright">Copyright &#xA9; aisnote at gmail dot com 2023 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Latest update&#xFF1A;
 01-26-2023 22:35:50
 </span></footer>
@@ -384,14 +322,10 @@
 
             
                 
-                <a href="../3.Database/" class="navigation navigation-prev " aria-label="Previous page: 3. Database:Room">
+                <a href="../5.Media/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 5. Media Relative">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="../5.Media/" class="navigation navigation-next " aria-label="Next page: 5. Media Relative">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -400,7 +334,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"4. Network","level":"1.4","depth":1,"next":{"title":"5. Media Relative","level":"1.5","depth":1,"path":"5.Media/README.md","ref":"5.Media/README.md","articles":[]},"previous":{"title":"3. Database:Room","level":"1.3","depth":1,"path":"3.Database/README.md","ref":"3.Database/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["tbfed-pagefooter","mermaid"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright &copy aisnote at gmail dot com 2023","modify_label":"Latest update：","modify_format":"MM-DD-YYYY HH:mm:ss"},"mermaid":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"GitBook Toolchain Documentation","gitbook":"3.2.3"},"file":{"path":"4.Network/README.md","mtime":"2023-01-26T22:35:50.504Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-01-26T22:36:55.083Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"6. AI Relative","level":"1.6","depth":1,"previous":{"title":"5. Media Relative","level":"1.5","depth":1,"path":"5.Media/README.md","ref":"5.Media/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["tbfed-pagefooter","mermaid"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright &copy aisnote at gmail dot com 2023","modify_label":"Latest update：","modify_format":"MM-DD-YYYY HH:mm:ss"},"mermaid":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"GitBook Toolchain Documentation","gitbook":"3.2.3"},"file":{"path":"6.AI-Relative/README.md","mtime":"2023-01-26T22:35:50.504Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-01-26T22:36:55.083Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
