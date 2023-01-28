@@ -19,7 +19,22 @@
              "modify_label": "Latest update：",
              "modify_format": "MM-DD-YYYY HH:mm:ss"
          }
-     }
+     },
+
+     "links": {
+        "sidebar": {
+            "aisnote": "https://aisnote.com"
+        },
+
+        
+        "sharing": {
+            "google": null,
+            "facebook": null,
+            "twitter": "https://twitter.com/aisnote",
+            "weibo": null,
+            "all": null
+        }
+    }
 
     
 }
