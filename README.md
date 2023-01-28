@@ -18,3 +18,6 @@ Enjoy the reading.
 **You can search the content via the left-top search box.**
 
 ~aisnote at gmail dot com.
+
+
+gitbook config: https://www.mapull.com/gitbook/comscore/others/book.html

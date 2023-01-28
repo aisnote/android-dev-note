@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>3. Database:Room · GitBook Toolchain Documentation</title>
+        <title>5.1 Observer MediaStore Change · GitBook Toolchain Documentation</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -69,10 +69,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../4.Network/" />
+    <link rel="next" href="../6.AI-Relative/" />
     
     
-    <link rel="prev" href="../2.ui/2.4-Fragment.html" />
+    <link rel="prev" href="./" />
     
 
     </head>
@@ -213,9 +213,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.3" data-path="./">
+        <li class="chapter " data-level="1.3" data-path="../3.Database/">
             
-                <a href="./">
+                <a href="../3.Database/">
             
                     
                     3. Database:Room
@@ -239,9 +239,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5" data-path="../5.Media/">
+        <li class="chapter " data-level="1.5" data-path="./">
             
-                <a href="../5.Media/">
+                <a href="./">
             
                     
                     5. Media Relative
@@ -253,9 +253,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.5.1" data-path="../5.Media/5.1-Observer-Media-Store-Changed.html">
+        <li class="chapter active" data-level="1.5.1" data-path="5.1-Observer-Media-Store-Changed.html">
             
-                <a href="../5.Media/5.1-Observer-Media-Store-Changed.html">
+                <a href="5.1-Observer-Media-Store-Changed.html">
             
                     
                     5.1 Observer MediaStore Change
@@ -359,7 +359,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >3. Database:Room</a>
+        <a href=".." >5.1 Observer MediaStore Change</a>
     </h1>
 </div>
 
@@ -374,21 +374,62 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="3--database">3.  Database</h1>
-<p>TBD: Kotlin Room Component from Google based on sqlite3</p>
-<p>I refered to this <a href="https://google-developer-training.github.io/android-developer-advanced-course-practicals/unit-6-working-with-architecture-components/lesson-14-room,-livedata,-viewmodel/14-1-a-room-livedata-viewmodel/14-1-a-room-livedata-viewmodel.html" target="_blank">doc from google-developer</a></p>
-<p>And the diagram as below picture:</p>
-<table>
-<tbody>
-<tr>
-<td>
-<img src="../assets/imgs/Room_eg.png" height="300px">
-</td>
-</tr>
-</tbody>
-</table>
+                                <h1 id="51-observer-mediastore-change">5.1 Observer MediaStore Change</h1>
+<p>In the <strong>MainActivity.kt</strong>, used below code to listen the external URI changed:</p>
+<pre><code class="lang-Kotlin">    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">registerContentObserver</span><span class="hljs-params">()</span> {</span>
+        this.contentResolver.registerContentObserver(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, <span class="hljs-literal">true</span>, lomoContentObserver);
 
+        this.contentResolver.registerContentObserver(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, <span class="hljs-literal">true</span>, lomoContentObserver);
+    }
 
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">unregisterContentObserver</span><span class="hljs-params">()</span> {</span>
+        this.contentResolver.unregisterContentObserver(lomoContentObserver);
+    }
+</code></pre>
+<p>If there is new video or images/pictures be changed in MediaStore, the App can get the notification.</p>
+<p>Inside </p>
+<pre><code class="lang-Kotlin"><span class="hljs-keyword">private</span> <span class="hljs-variable"><span class="hljs-keyword">val</span> lomoContentObserver</span> = LomoContentObserver(handler)
+</code></pre>
+<p><strong>LomoContentObserver</strong> class is as below:</p>
+<pre><code class="lang-Kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LomoContentObserver</span></span>(handler: Handler) : ContentObserver(handler) {
+
+    <span class="hljs-keyword">private</span> <span class="hljs-variable"><span class="hljs-keyword">var</span> dataChanged</span> = <span class="hljs-literal">false</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">reset</span><span class="hljs-params">()</span> {</span>
+        dataChanged = <span class="hljs-literal">false</span>
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">isChanged</span><span class="hljs-params">()</span> : <span class="hljs-keyword">Boolean</span> {</span>
+        <span class="hljs-keyword">return</span> dataChanged
+    }
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">deliverSelfNotifications</span><span class="hljs-params">()</span>: <span class="hljs-keyword">Boolean</span> {</span>
+        <span class="hljs-comment">// return super.deliverSelfNotifications()</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+    }
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onChange</span><span class="hljs-params">(selfChange: <span class="hljs-type">Boolean</span>)</span> {</span>
+        super.onChange(selfChange)
+
+        Timber.i(<span class="hljs-string">&quot;LomoContentObserver::onChange selfChange = $selfChange&quot;</span>)
+    }
+
+    <span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onChange</span><span class="hljs-params">(selfChange: <span class="hljs-type">Boolean, uri: Uri?</span>)</span> {</span>
+        super.onChange(selfChange, uri)
+
+        dataChanged = <span class="hljs-literal">true</span>
+        Timber.i(<span class="hljs-string">&quot;LomoContentObserver::onChange hash = ${uri.hashCode()}   selfChange = $selfChange, uri = ${uri?.path}&quot;</span>)
+    }
+
+    <span class="hljs-comment">// fun onChange(selfChange: Boolean) {</span>
+    <span class="hljs-comment">//     this.onChange(selfChange, null)</span>
+    <span class="hljs-comment">// }</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// fun onChange(selfChange: Boolean, uri: Uri?) {</span>
+    <span class="hljs-comment">//     doYourWorkHere()</span>
+    <span class="hljs-comment">// }</span>
+}
+</code></pre>
 <footer class="page-footer"><span class="copyright">Copyright &#xA9; aisnote at gmail dot com 2023 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Latest update&#xFF1A;
 01-28-2023 03:06:44
 </span></footer>
@@ -418,12 +459,12 @@
 
             
                 
-                <a href="../2.ui/2.4-Fragment.html" class="navigation navigation-prev " aria-label="Previous page: 2.4 Fragment">
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: 5. Media Relative">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="../4.Network/" class="navigation navigation-next " aria-label="Next page: 4. Network">
+                <a href="../6.AI-Relative/" class="navigation navigation-next " aria-label="Next page: 6. AI Relative">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -434,7 +475,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"3. Database:Room","level":"1.3","depth":1,"next":{"title":"4. Network","level":"1.4","depth":1,"path":"4.Network/README.md","ref":"4.Network/README.md","articles":[]},"previous":{"title":"2.4 Fragment","level":"1.2.4","depth":2,"path":"2.ui/2.4-Fragment.md","ref":"2.ui/2.4-Fragment.md","articles":[]},"dir":"ltr"},"config":{"plugins":["tbfed-pagefooter","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright &copy aisnote at gmail dot com 2023","modify_label":"Latest update：","modify_format":"MM-DD-YYYY HH:mm:ss"},"mermaid-gb3":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"GitBook Toolchain Documentation","links":{"sidebar":{"aisnote":"https://aisnote.com"},"sharing":{"google":null,"facebook":null,"twitter":"https://twitter.com/aisnote","weibo":null,"all":null}},"gitbook":"3.2.3"},"file":{"path":"3.Database/README.md","mtime":"2023-01-28T03:06:44.956Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-01-28T03:07:21.093Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"5.1 Observer MediaStore Change","level":"1.5.1","depth":2,"next":{"title":"6. AI Relative","level":"1.6","depth":1,"path":"6.AI-Relative/README.md","ref":"6.AI-Relative/README.md","articles":[]},"previous":{"title":"5. Media Relative","level":"1.5","depth":1,"path":"5.Media/README.md","ref":"5.Media/README.md","articles":[{"title":"5.1 Observer MediaStore Change","level":"1.5.1","depth":2,"path":"5.Media/5.1-Observer-Media-Store-Changed.md","ref":"5.Media/5.1-Observer-Media-Store-Changed.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["tbfed-pagefooter","mermaid-gb3"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright &copy aisnote at gmail dot com 2023","modify_label":"Latest update：","modify_format":"MM-DD-YYYY HH:mm:ss"},"mermaid-gb3":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"GitBook Toolchain Documentation","links":{"sidebar":{"aisnote":"https://aisnote.com"},"sharing":{"google":null,"facebook":null,"twitter":"https://twitter.com/aisnote","weibo":null,"all":null}},"gitbook":"3.2.3"},"file":{"path":"5.Media/5.1-Observer-Media-Store-Changed.md","mtime":"2023-01-28T03:06:44.956Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2023-01-28T03:07:21.093Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

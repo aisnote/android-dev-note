@@ -10,4 +10,8 @@
 * [3. Database:Room](3.Database/README.md)
 * [4. Network](4.Network/README.md)
 * [5. Media Relative](5.Media/README.md)
+  * [5.1 Observer MediaStore Change](5.Media/5.1-Observer-Media-Store-Changed.md)
 * [6. AI Relative](6.AI-Relative/README.md)
+* [7. Android System Relative](7.Android-System/README.md)
+  * [7.1 Work Manager](7.Android-System/7.1-WorkMgr.md)
+* [8. Others](8.Others/README.md)
