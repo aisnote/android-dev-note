@@ -10,9 +10,6 @@ But everything on this book is just my notes, so I name this book:
 
  **"My Android App development notes with Kotlin"**
 
-
-
-
 Enjoy the reading.
 
 **You can search the content via the left-top search box.**
@@ -20,4 +17,39 @@ Enjoy the reading.
 ~aisnote at gmail dot com.
 
 
-gitbook config: https://www.mapull.com/gitbook/comscore/others/book.html
+**Reference：**
+1. [gitbook config](https://www.mapull.com/gitbook/comscore/others/book.html)
+2. cmd:
+   > gitbook install
+
+   > ./run.sh
+
+3. My Windows Dev Env:
+   
+   ```Shell
+   $ node --version
+    v18.13.0
+
+   $ npm --version
+    8.19.3
+
+
+   ```
+
+4. If you meet gitbook polyfill issue on **graceful-fs**, please comments out as below:
+
+    ```Javascript
+    c:\Users\Elliot\AppData\Roaming\npm\node_modules\gitbook-cli\node_modules\npm\node_modules\graceful-fs\polyfills.js
+
+    fs.chmodSync = chmodFixSync(fs.chmodSync)
+    fs.fchmodSync = chmodFixSync(fs.fchmodSync)
+    fs.lchmodSync = chmodFixSync(fs.lchmodSync)
+
+    //fs.stat = statFix(fs.stat)
+    //fs.fstat = statFix(fs.fstat)
+    //fs.lstat = statFix(fs.lstat)
+
+    fs.statSync = statFixSync(fs.statSync)
+    fs.fstatSync = statFixSync(fs.fstatSync)
+    fs.lstatSync = statFixSync(fs.lstatSync)
+    ```
