@@ -26,19 +26,17 @@ Enjoy the reading.
 
 3. My Windows Dev Env:
    
-   ```Shell
-   $ node --version
+```Shell
+    $ node --version
     v18.13.0
 
-   $ npm --version
+    $ npm --version
     8.19.3
-
-
-   ```
+```
 
 4. If you meet gitbook polyfill issue on **graceful-fs**, please comments out as below:
 
-    ```Javascript
+```JavaScript
     c:\Users\Elliot\AppData\Roaming\npm\node_modules\gitbook-cli\node_modules\npm\node_modules\graceful-fs\polyfills.js
 
     fs.chmodSync = chmodFixSync(fs.chmodSync)
@@ -52,4 +50,4 @@ Enjoy the reading.
     fs.statSync = statFixSync(fs.statSync)
     fs.fstatSync = statFixSync(fs.fstatSync)
     fs.lstatSync = statFixSync(fs.lstatSync)
-    ```
+```
